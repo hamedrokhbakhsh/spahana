@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+    <ion-toolbar class="no-bg">
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="['/home']"></ion-back-button>
+        </ion-buttons>
+        <ion-title>کارت های هدیه</ion-title>
+        <ion-buttons slot="end">
+            <img class="logo-header" src="assets/icon/logo.png"/>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class=" ion-padding " [fullscreen]="true">
+    <form [formGroup]="form" (ngSubmit)="submitSubscribeCode()">
+        <ion-list>
+            <ion-item-divider>
+                کارت های هدیه شما
+            </ion-item-divider>
+            <ion-item *ngIf="(!items || items.length==0) && !dataLoading">
+                <ion-label class="ion-text-center">کارت هدیه ای برای شما ثبت نشده است.</ion-label>
+            </ion-item>
+            <ion-item *ngIf="dataLoading">
+                <ion-label class="ion-text-center">
+                    <ion-spinner color="primary"></ion-spinner>
+                </ion-label>
+            </ion-item>
+            <ion-item *ngIf="(items && items.length > 0) &&  !dataLoading">
+                <small style="color: #ecbd12;">
+                    <div> ***کارت هایی که میخواهید استفاده کنید را انتخاب کنید.</div>
+                    <div> ***حداکثر تعداد کارت هدید باید کمتر از تعداد نفرات انتخابی باشد.</div>
+                </small>
+            </ion-item>
+            <ion-item *ngFor="let item of items">
+                <ion-label>
+                    <h5>{{item?.title}} ({{item?.serial}})</h5>
+                    <p>{{item.services.join(', ')}}</p>
+                </ion-label>
+                <ion-checkbox [ngModelOptions]="{standalone:true}" [(ngModel)]="item.selected" mode="ios"
+                              slot="end"></ion-checkbox>
+            </ion-item>
+            <ion-item-divider>
+                ثبت کارت هدیه
+            </ion-item-divider>
+            <ion-item>
+                <ion-button (click)="openQrcode()" slot="start"  fill="clear">
+                    <ion-icon name="qr-code"></ion-icon>
+                </ion-button>
+                <ion-input [autofocus]="true" [inputmode]="'tel'" autocorrect="false" autocomplete="false"
+                           required="true" formControlName="code"
+                           placeholder="شماره کارت ..."></ion-input>
+                <ion-button size="small" slot="end" [disabled]="loading" shape="round" type="submit">
+                    <ion-spinner style="width: 18px" *ngIf="loading"></ion-spinner>
+                    <span *ngIf="!loading">ثبت</span>
+                </ion-button>
+            </ion-item>
+            <div *ngIf="form.invalid && isSubmit" class="validation-box">
+                <div>
+                    <ion-icon name="information-circle" size="small"></ion-icon>
+                    <span>شماره کارت را بدرستی وارد کنید.</span>
+                </div>
+            </div>
+        </ion-list>
+    </form>
+
+</ion-content>
+<ion-footer *ngIf="!first">
+    <ion-toolbar class="no-bg">
+        <ion-button [disabled]="!isEnabledNext()" (click)="submit()" expand="block">
+            انتخاب خدمات
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

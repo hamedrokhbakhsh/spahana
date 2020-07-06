@@ -1,0 +1,21 @@
+<div  class="scanner-modalm">
+  <zxing-scanner  (permissionResponse)="permissionResponse($event)"
+                 (scanSuccess)="scanSuccess($event)" (scanError)="scanError($event)"
+                 (scanFailure)="scanFailure($event)" [autofocusEnabled]="true" (scanComplete)="scanComplete($event)"
+                 [torch]="flash" style="height: 100%"
+                 [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"></zxing-scanner>
+  <div class="overlay top"></div>
+  <div class="overlay right"></div>
+  <div class="overlay left"></div>
+  <div class="overlay bottom"></div>
+  <div class="toolbar">
+    <ion-button (click)="flash=!flash" color="light" shape="rounded" fill="clear">
+      <ion-icon *ngIf="flash" name="flash"></ion-icon>
+      <ion-icon *ngIf="!flash" name="flash-off"></ion-icon>
+    </ion-button>
+
+    <ion-button (click)="close()" class="ion-float-left" color="light" shape="rounded" fill="clear">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </div>
+</div>

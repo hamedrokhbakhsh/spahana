@@ -1,0 +1,36 @@
+<ion-header [translucent]="true" >
+    <ion-toolbar class="no-bg">
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="['/home']"></ion-back-button>
+        </ion-buttons>
+        <ion-title>خدمات</ion-title>
+        <ion-buttons slot="end">
+            <img class="logo-header" src="assets/icon/logo.png"/>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class=" ion-padding " [fullscreen]="true">
+    <div class="ion-padding-top ion-text-center" *ngIf="loading">
+        <ion-spinner color="primary"></ion-spinner>
+    </div>
+    <ion-list>
+        <ion-item *ngIf="!loading && items.length==0">
+            <ion-label><p>محتوایی یافت نشد.</p></ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['/services',item.ID]" routerDirection="forward" *ngFor="let item of items">
+            <ion-thumbnail *ngIf="item?.Icon" slot="start">
+                <img [src]="item?.Icon|baseUrl"/>
+            </ion-thumbnail>
+            <ion-label>
+                <h2>{{item.Title}}</h2>
+                <p  *ngIf="item?.SubTitle">{{item?.SubTitle}}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="درحال بارگذاری ...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

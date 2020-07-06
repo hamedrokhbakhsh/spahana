@@ -1,0 +1,33 @@
+<ion-content class=" ion-padding " [fullscreen]="true">
+    <div class="fullheight xc">
+        <div>
+            <div class="logo ion-margin-bottom">
+                <img src="assets/icon/logo.png" height="117" width="300"/>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="verifyToken()">
+                <ion-input (ionChange)="keyup($event)" class="item-form  ion-text-center ltr" [autofocus]="true" [inputmode]="'tel'"
+                           required="true" formControlName="token"
+                           placeholder="کد ورود"></ion-input>
+                <div class="validation-box">
+                    <div *ngIf="form.invalid">&nbsp;</div>
+                    <div *ngIf="form.invalid && isSubmit">
+                        <ion-icon name="information-circle" size="small"></ion-icon>
+                        <span>کد شش رقمی را به صورت صحیح وارد کنید.</span>
+                    </div>
+                </div>
+                <ion-button [disabled]="loading || timer<=0" type="submit" shape="round" expand="block">
+                    <ion-spinner *ngIf="loading"></ion-spinner>
+                    <span *ngIf="!loading">تایید</span>
+                </ion-button>
+
+                <ion-button [disabled]="resendLoading || timer > 0" (click)="resendToken()" expand="block" fill="clear">
+                    <ion-spinner *ngIf="resendLoading"></ion-spinner>
+                    ارسال مجدد بعد از {{timer}} ثانیه
+                </ion-button>
+                <ion-button routerLink="/auth" routerDirection="back" [disabled]="resendLoading || loading"  expand="block" fill="clear">
+                   تصحیح شماره تلفن
+                </ion-button>
+            </form>
+        </div>
+    </div>
+</ion-content>

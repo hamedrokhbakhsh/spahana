@@ -1,26 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="rtl" lang="fa">
 
 <head>
-  <meta charset="utf-8" />
-  <title>Ionic App</title>
+    <meta charset="utf-8"/>
+    <title>هانا</title>
 
-  <base href="/" />
+    <base href="/"/>
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#ecbd12">
+    <meta name="color-scheme" content="light dark"/>
+    <meta name="viewport"
+          content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
 
-  <meta name="color-scheme" content="light dark" />
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="icon" type="image/png" href="assets/icon/favicon.png"/>
 
-  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+    <!-- add to homescreen for ios -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <style>
+        .banner-section {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            top: 0;
+            left: 0
+        }
 
-  <!-- add to homescreen for ios -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        .banner {
+            height: 100%;
+            width: 100%;
+            pointer-events: none;
+            object-fit: cover;
+        }
+
+    </style>
+    <script src="assets/js/persian-date.js"></script>
+
 </head>
 
 <body>
-  <app-root></app-root>
+<div class="banner-section">
+    <video class="banner" loop="true" playsinline="" autoplay="true" src="assets/banner.mp4">
+    </video>
+</div>
+<app-root></app-root>
+<noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 
 </html>

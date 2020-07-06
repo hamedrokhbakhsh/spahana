@@ -1,0 +1,17 @@
+
+.opened{
+  transform: scaleX(0.96);
+  -moz-transform: scaleX(0.96);
+  -webkit-transform: scaleX(0.96);
+  -o-transform: scaleX(0.96);
+  -ms-transform: scaleX(0.96);
+  background: #fff;
+  z-index: -1;
+  --inner-padding-start:0;
+  --inner-padding-end:0;
+  --ion-safe-area-right:0;
+  --ion-safe-area-left:0
+}
+.ion-shadow{
+  box-shadow: 0 0px 4px 2px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+    <ion-toolbar class="no-bg">
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="['/home']"></ion-back-button>
+        </ion-buttons>
+        <ion-title>پشتیبانی</ion-title>
+        <ion-buttons slot="end">
+            <img class="logo-header" src="assets/icon/logo.png"/>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" [fullscreen]="true">
+    <ion-refresher (ionRefresh)="fetchData($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div >
+        <ion-list>
+            <div class="ion-padding-top ion-text-center" *ngIf="loading">
+                <ion-spinner color="primary"></ion-spinner>
+            </div>
+            <div *ngIf="!content && !loading">محتوایی یافت نشد.</div>
+            <ng-container *ngIf="content && !loading">
+                <ion-item *ngIf="content?.phone && content?.phone.length > 0">
+                    <ion-icon class="myicon ion-align-self-start" slot="start" name="call"></ion-icon>
+                    <ion-label class="ion-align-self-start">
+                        شماره های تماس:
+                    </ion-label>
+                    <ion-label class="ion-text-left">
+                        <p *ngFor="let p of content?.phone">
+                            <a href="tel:{{p}}">
+                                {{p}}
+                            </a>
+                        </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item *ngIf="content.fax">
+                    <ion-icon class="myicon" slot="start" name="receipt"></ion-icon>
+                    <ion-label>فکس:</ion-label>
+                    <ion-label class="ion-text-left">
+                        <p>
+                            <a href="fax:{{content?.fax}}">
+                                {{content.fax}}
+                            </a>
+                        </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item *ngIf="content.email">
+                    <ion-icon class="myicon" slot="start" name="mail"></ion-icon>
+                    <ion-label>ایمیل:</ion-label>
+                    <ion-label class="ion-text-left">
+                        <p>
+                            <a href="mailto:{{content?.email}}">
+                                {{content.email}}
+                            </a>
+                        </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item *ngIf="content.web">
+                    <ion-icon class="myicon" slot="start" name="earth"></ion-icon>
+                    <ion-label>وب سایت:</ion-label>
+                    <ion-label class="ion-text-left">
+                        <p>
+                            <a target="_blank" [href]="content?.web">
+                                {{content.web}}
+                            </a>
+                        </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item *ngIf="content.address">
+                    <ion-icon class="myicon ion-align-self-start" slot="start" name="map"></ion-icon>
+                    <ion-label class="ion-text-wrap ion-align-self-start">
+                        نشانی:
+                        <p class="ion-text-justify">{{content.address}}</p>
+                    </ion-label>
+                </ion-item>
+            </ng-container>
+
+        </ion-list>
+
+    </div>
+</ion-content>

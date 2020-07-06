@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+    <ion-toolbar class="no-bg">
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="['/home']"></ion-back-button>
+        </ion-buttons>
+        <ion-title>تاریخچه رزروها</ion-title>
+        <ion-buttons slot="end">
+            <img class="logo-header" src="assets/icon/logo.png"/>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class=" ion-padding " [fullscreen]="true">
+    <div class="ion-padding-top ion-text-center" *ngIf="loading">
+        <ion-spinner color="primary"></ion-spinner>
+    </div>
+    <ion-list>
+        <ion-item *ngIf="!loading && items.length==0">
+          <ion-label><p>محتوایی یافت نشد.</p></ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['/history',item.id]" routerDirection="forward" *ngFor="let item of items">
+            <ion-label>
+                <h4>{{item.services}}</h4>
+                <div><small>کد پیگیری: {{item.serial}}</small></div>
+                <small>تاریخ: <span class="ltr ion-text-left" style="display: inline-block;">{{item.date|dateFormat:'jYYYY/jMM/jDD'}}</span></small>
+            </ion-label>
+            <ng-container *ngIf="!item?.IsCanceled">
+                <ion-icon style="color: green" *ngIf="item.status==1" slot="end" name="checkmark-circle"></ion-icon>
+                <ion-icon style="color: red" *ngIf="item.status==2" slot="end" name="close-circle"></ion-icon>
+                <ion-icon style="color: blue" *ngIf="item.status==0" slot="end" name="timer"></ion-icon>
+            </ng-container>
+            <ion-icon style="color: red" *ngIf="item?.IsCanceled" slot="end" name="close-circle"></ion-icon>
+        </ion-item>
+    </ion-list>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="درحال بارگذاری ...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

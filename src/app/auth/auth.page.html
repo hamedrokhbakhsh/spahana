@@ -1,0 +1,25 @@
+<ion-content class=" ion-padding " [fullscreen]="true">
+    <div class="fullheight xc">
+        <div>
+            <div class="logo ion-margin-bottom">
+                <img src="assets/icon/logo.png" height="117" width="300"/>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="requestToken()">
+                <ion-input class="item-form ion-text-center ltr" [autofocus]="true" [inputmode]="'tel'"
+                           required="true" formControlName="mobile"
+                           placeholder="شماره موبایل"></ion-input>
+                <div class="validation-box">
+                    <div *ngIf="form.invalid">&nbsp;</div>
+                    <div *ngIf="form.invalid && isSubmit">
+                        <ion-icon name="information-circle" size="small"></ion-icon>
+                        <span>شماره موبایل خود را بدرستی وارد کنید.</span>
+                    </div>
+                </div>
+                <ion-button [disabled]="loading" type="submit" shape="round" expand="block">
+                    <ion-spinner *ngIf="loading" ></ion-spinner>
+                    <span *ngIf="!loading">ورود</span>
+                </ion-button>
+            </form>
+        </div>
+    </div>
+</ion-content>

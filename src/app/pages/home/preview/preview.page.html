@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+    <ion-toolbar class="no-bg">
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="['/reserve']"></ion-back-button>
+        </ion-buttons>
+        <ion-title>مشاهده اطلاعات رزرو</ion-title>
+        <ion-buttons slot="end">
+            <img class="logo-header" src="assets/icon/logo.png"/>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-list>
+        <ion-item>
+            <ion-label>تاریخ:</ion-label>
+            <ion-label>{{format()}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>جنسیت:</ion-label>
+            <ion-label>{{service?.order?.sex == 1 ? 'مرد' : 'زن'}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>تعداد:</ion-label>
+            <ion-label>{{service?.order?.count}}</ion-label>
+        </ion-item>
+        <ion-item-divider>
+            خدمات
+        </ion-item-divider>
+        <ion-item *ngFor="let item of service?.order?.services|keyvalue">
+            <ion-label class="ion-text-wrap">
+              <h4>{{item.value.title}}</h4>
+              <ion-badge style="margin-left: 5px;background: #92949c;font-size: x-small"
+                         *ngFor="let bs of item.value.items">
+                {{bs?.title}}
+                <ion-icon color="primary" *ngFor="let u of ','.repeat(bs?.count-1).split(',')"
+                          [name]="service?.order?.sex==1?'man':'woman'"></ion-icon>
+              </ion-badge>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar class="no-bg">
+        <ion-button (click)="submit()" [disabled]="loading || !service.order" expand="block">
+            <ion-spinner *ngIf="loading"></ion-spinner>
+            تایید
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

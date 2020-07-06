@@ -24,3 +24,172 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+$font-path: "assets/font";
+@font-face {
+  font-family: 'Persian-font';
+  font-weight: normal;
+  font-style: normal;
+  src: url(assets/font/IRANSansWeb.ttf) format('truetype');
+}
+:root,
+:root[mode=ios],
+:root[mode=md] {
+  --ion-font-family: "Persian-font", "Times New Roman", serif !important;
+  font-family: "Persian-font", "Times New Roman", serif !important;
+}
+body{
+  font-family: "Persian-font", "Times New Roman", serif !important;
+}
+body{
+  text-align: right;
+}
+
+ion-content{
+  --background: rgba(255,255,255,0.65);
+}
+
+.masters{
+  display: flex;
+  flex-direction: column;;
+  align-items: center;
+  justify-content: center;
+}
+.logo{
+  text-align: center;
+  padding: 3rem;
+  img{
+    width: 150px;
+    height: auto;
+  }
+}
+.fullheight {
+  height: 100%;
+}
+
+.xc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > div{
+    width: 100%;
+  }
+}
+.item-form{
+  --background: #fff!important;
+  border-radius: 25px;
+}
+.validation-box{
+  min-height: 15px;
+  width: 100%;
+  font-size: small;
+  color: red;
+  margin-top: 5px;
+  height: 20px;
+  > div{
+    display: inline-flex;
+    align-items: center;
+  }
+}
+.ltr{
+  direction: ltr;
+}
+.rtl{
+  direction: rtl;
+}
+.mytoast{
+  --background: #ecbd12;
+  --color: #fff
+}
+.no-bg{
+  --background: rgba(255,255,255,0.8)!important
+}
+ion-list{
+  --ion-item-background: transparent!important;
+  padding-top: 0!important;
+  padding-bottom: 0!important;
+}
+ion-item{
+  --ion-item-background: rgba(255,255,255,0.85)!important;
+  --detail-icon-color: #ecbd12;
+  --detail-icon-opacity: 0.8
+}
+
+.my-segment{
+  --color-checked:#fff;
+  --indicator-color: #ecbd12 ;
+  --indicator-color-checked: #ecbd12 ;
+  --border-color : #ecbd12
+}
+
+.segment-tab{
+  --background: rgba(255,255,255,0.9)!important;
+  border-radius: 0!important;
+}
+ion-avatar{
+  width: 64px;
+  height: 64px;
+}
+.logo-header{
+  height: 40px;
+  width: auto;
+
+}
+ion-menu{
+  --padding-bottom: 0;
+  --padding-end: 0;
+  --padding-top:0 ;
+  --padding-start: 0;
+  --background: #f5f5f9!important;
+}
+.alert-success{
+  --background: #ecbd12;
+}
+.alert-danger{
+  --background: #d21e4e;
+}
+.myAlert {
+
+  color: #fff;
+
+  .alert-wrapper {
+    border-radius: 15px;
+  }
+
+  .alert-message {
+    color: #fff
+  }
+
+  .success-btn {
+    background: #fff;
+    border-radius: 0 0 15px 15px !important;
+    color: #888;
+  }
+
+  .danger-btn {
+    background: #454E6D;
+    border-radius: 0 0 15px 15px !important;
+  }
+
+  .alert-message-content {
+    text-align: center;
+    margin-bottom: 20px;
+
+    ion-icon {
+      width: 120px;
+      height: 120px;
+    }
+
+    p {
+      color: #BCBFD1
+    }
+  }
+}
+
+.mybtn{
+  --padding-start: 0px;
+  --padding-end: 0px;
+}
+.sc-header{
+  background: #ffffff;color:#d21e4e;display: flex;justify-content: space-between;align-items: center;
+  direction: ltr;
+}

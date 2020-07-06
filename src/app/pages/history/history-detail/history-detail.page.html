@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+    <ion-toolbar class="no-bg">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>جزییات رزرو</ion-title>
+        <ion-buttons slot="end">
+            <img class="logo-header" src="assets/icon/logo.png"/>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class=" ion-padding " [fullscreen]="true">
+    <ion-refresher (ionRefresh)="fetchData($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div class="ion-padding-top ion-text-center" *ngIf="loading">
+        <ion-spinner color="primary"></ion-spinner>
+    </div>
+
+    <ion-list lines="full">
+        <ion-item *ngIf="!content && !loading">
+            <ion-label>
+                <div>محتوایی یافت نشد.</div>
+            </ion-label>
+        </ion-item>
+        <ng-container *ngIf="content && !loading">
+            <ion-item-divider style="padding-right: 0">
+                <ion-label style="width: 100%;text-align: center">
+                    <ng-container *ngIf="!content?.IsCanceled">
+                        <ion-icon style="color: green;font-size: 5rem" *ngIf="content.status==1" slot="end"
+                                  name="checkmark-circle"></ion-icon>
+                        <ion-icon style="color: red;font-size: 5rem" *ngIf="content.status==2" slot="end"
+                                  name="close-circle"></ion-icon>
+                        <ion-icon style="color: blue;font-size:5rem" *ngIf="content.status==0" slot="end"
+                                  name="timer"></ion-icon>
+                    </ng-container>
+                    <ion-icon style="color: red;font-size:5rem" *ngIf="content?.IsCanceled" slot="end"
+                              name="close-circle"></ion-icon>
+                </ion-label>
+            </ion-item-divider>
+            <ion-item>
+                <ion-label>تاریخ درخواست:</ion-label>
+                <ion-label class="ion-text-left ltr">{{content?.RegisterDate|dateFormat:'jYYYY/jMM/jDD'}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>وضعیت:</ion-label>
+                <ng-container *ngIf="!content?.IsCanceled">
+                    <ion-label class="ion-text-left ltr" *ngIf="content?.status==0">زمان استفاده نرسیده</ion-label>
+                    <ion-label class="ion-text-left ltr" *ngIf="content?.status==1">سرویس انجام شده</ion-label>
+                    <ion-label class="ion-text-left ltr" *ngIf="content?.status==2">سرویس دهی ناموفق</ion-label>
+                </ng-container>
+                <ion-label class="ion-text-left ltr" *ngIf="content?.IsCanceled">لغو شده</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>تاریخ سرویس:</ion-label>
+                <ion-label class="ion-text-left ltr">{{content.ReserveDate|dateFormat:'jYYYY/jMM/jDD'}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>جنسیت:</ion-label>
+                <ion-label class="ion-text-left ltr">{{content.sex == 0 ? 'زن' : 'مرد'}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>تعداد:</ion-label>
+                <ion-label class="ion-text-left ltr">{{content.Quantity}}</ion-label>
+            </ion-item>
+            <ion-item-divider>
+                <ion-label>خدمات</ion-label>
+            </ion-item-divider>
+            <ion-item *ngFor="let op of content.services">
+                <ion-label>{{op.Title}}</ion-label>
+                <ion-label class="ion-text-left ltr">{{op.time}}</ion-label>
+            </ion-item>
+        </ng-container>
+
+    </ion-list>
+</ion-content>
+<ion-footer *ngIf="allowCancel && !content?.IsCanceled">
+    <ion-toolbar class="no-bg">
+        <ion-button [disabled]="submitLoading" (click)="submit()" color="danger" expand="block">
+            <ion-spinner *ngIf="submitLoading"></ion-spinner>
+            لغو رزرو
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

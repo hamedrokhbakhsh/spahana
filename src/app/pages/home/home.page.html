@@ -1,0 +1,77 @@
+<ion-header [translucent]="true">
+    <ion-toolbar class="no-bg">
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="['/subscribe']"></ion-back-button>
+        </ion-buttons>
+        <ion-title>خدمات</ion-title>
+        <ion-buttons slot="end">
+            <img class="logo-header" src="assets/icon/logo.png"/>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div class="ion-padding-top ion-text-center" *ngIf="loading">
+        <ion-spinner color="primary"></ion-spinner>
+    </div>
+    <ion-list lines="full" *ngIf="!loading">
+        <ng-container *ngIf="serviceList?.creditService?.length > 0">
+            <ion-item-divider>
+                خدمات کارت هدیه
+            </ion-item-divider>
+            <ion-item>
+                <small style="color: #ecbd12">***تمامی خدمات کارت هدیه با حداقل تعداد اشتراک باید انتخاب شوند.</small>
+            </ion-item>
+            <ng-container *ngFor="let item of serviceList?.creditService">
+                <ion-item (click)="openScheduleModal(item)" detail="true"
+                          detailIcon="time">
+                    <ion-thumbnail *ngIf="item.icon" slot="start">
+                        <img [src]="item.icon|baseUrl"/>
+                    </ion-thumbnail>
+                    <ion-label>
+                        <h2>{{item.title}}<small>({{item.serials.length}} اشتراک)</small></h2>
+                        <div style="overflow-x: auto" *ngIf="order.services[item.id]">
+                            <ion-badge style="margin-left: 5px;background: #92949c;font-size: x-small"
+                                       *ngFor="let bs of order.services[item.id].items">
+                                {{bs?.title}}
+                                <ion-icon color="primary" *ngFor="let u of ','.repeat(bs?.count-1).split(',')"
+                                          [name]="order?.sex==1?'man':'woman'"></ion-icon>
+                            </ion-badge>
+                        </div>
+                    </ion-label>
+                </ion-item>
+            </ng-container>
+        </ng-container>
+        <ion-item-divider *ngIf="serviceList && serviceList?.services?.length > 0">
+            خدمات آزاد
+        </ion-item-divider>
+        <ng-container *ngIf="serviceList && serviceList?.services?.length > 0">
+            <ng-container *ngFor="let item of serviceList?.services">
+                <ion-item (click)="openScheduleModal(item)" detail="true" detailIcon="time">
+                    <ion-thumbnail *ngIf="item.icon" slot="start">
+                        <img [src]="item.icon|baseUrl"/>
+                    </ion-thumbnail>
+                    <ion-label>
+                        <h2>{{item.title}}</h2>
+                        <div style="overflow-x: auto" *ngIf="order.services[item.id]">
+                            <ion-badge style="margin-left: 5px;background: #92949c;font-size: x-small"
+                                       *ngFor="let bs of order.services[item.id].items">
+                                {{bs?.title}}
+                                <ion-icon color="primary" *ngFor="let u of ','.repeat(bs?.count-1).split(',')"
+                                          [name]="order?.sex==1?'man':'woman'"></ion-icon>
+                            </ion-badge>
+                        </div>
+                    </ion-label>
+                </ion-item>
+            </ng-container>
+        </ng-container>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar class="no-bg">
+        <ion-button (click)="submit()" [disabled]="!isEnableReserve()" expand="block">
+            رزرو
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

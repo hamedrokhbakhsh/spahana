@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+    <ion-toolbar class="no-bg">
+        <ion-buttons slot="start">
+            <ion-button (click)="closeDialog()">
+                <ion-icon name="close" ></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>انتخاب زمان</ion-title>
+        <ion-buttons slot="end">
+            <img class="logo-header" src="assets/icon/logo.png"/>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div *ngFor="let schedule of item.schedules">
+        <div class="sc-header">
+            <div class="ion-padding-start ion-padding-end">{{schedule.time}}</div>
+            <div style="display: inline-flex;justify-content: center;align-items: center">
+                <ion-button (click)="plus(schedule)" size="small" fill="clear">
+                    <ion-icon size="large" name="add-circle-outline" ></ion-icon>
+                </ion-button>
+                <span>{{schedule.count}}</span>
+                <ion-button (click)="minus(schedule)" size="small" fill="clear">
+                    <ion-icon size="large" name="remove-circle-outline" ></ion-icon>
+                </ion-button>
+            </div>
+        </div>
+        <div class="user-selector ion-text-center">
+            <span *ngFor="let user of schedule?.users;let i=index">
+                <ion-icon style="font-size: 20px" [color]="user.disabled?'success':(user.selected?'primary':'medium')"
+                          [name]="order?.sex==1?'man':'woman'"></ion-icon>
+            </span>
+        </div>
+    </div>
+</ion-content>

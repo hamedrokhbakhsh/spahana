@@ -1,0 +1,88 @@
+:host zxing-scanner::ng-deep video {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.overlay {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.top {
+  width: 100%;
+  height: 30%;
+  top: 0;
+  left: 0;
+}
+
+.bottom{
+  width: 100%;
+  height: 30%;
+  bottom: 0;
+  left: 0;
+}
+
+.left{
+  width: 10%;
+  height: 40%;
+  top: 30%;
+  left: 0;
+}
+.left:before{
+  content: ' ';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  left:100%;
+  top:0;
+  border-top: 2px solid rgba(255,255,255,1);
+  border-left: 2px solid rgba(255,255,255,1);
+}
+.left:after{
+  content: ' ';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  left:100%;
+  bottom: 0;
+  border-bottom: 2px solid rgba(255,255,255,1);
+  border-left: 2px solid rgba(255,255,255,1);
+}
+
+.right{
+  width: 10%;
+  height: 40%;
+  top: 30%;
+  right: 0;
+}
+.right:before{
+  content: ' ';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  right:100%;
+  top:0;
+  border-top: 2px solid rgba(255,255,255,1);
+  border-right: 2px solid rgba(255,255,255,1);
+}
+.right:after {
+  content: ' ';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  right: 100%;
+  bottom: 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 1);
+  border-right: 2px solid rgba(255, 255, 255, 1);
+}
+
+.toolbar{
+  position: absolute;
+  top:0;
+  width: 100%;
+}
+.scanner-modalm{
+  position: relative;;
+  height: 100%;
+}

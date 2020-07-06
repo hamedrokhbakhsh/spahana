@@ -1,0 +1,84 @@
+<ion-header [translucent]="true" >
+    <ion-toolbar class="no-bg">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>رزرو</ion-title>
+        <ion-buttons slot="end">
+            <img class="logo-header" src="assets/icon/logo.png"/>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class=" ion-padding ion-align-items-center" [fullscreen]="true">
+    <ion-list >
+        <ion-item (click)="openDatePicker()">
+            <ion-icon color="primary" slot="start" size="large" name="calendar-outline"></ion-icon>
+            <ion-label color="primary" class="ion-text-end" >{{date.pDate.format('dddd,jDD jMMMM  jYYYY')}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-segment (ionChange)="changeGender()" [(ngModel)]="order.sex" mode="ios">
+                <ion-segment-button class="my-segment" [value]="1" layout="icon-start">
+                    <ion-icon name="man-outline"></ion-icon>
+                    <ion-label>مرد</ion-label>
+                </ion-segment-button>
+                <ion-segment-button  class="my-segment" [value]="0" layout="icon-start">
+                    <ion-icon name="woman-outline"></ion-icon>
+                    <ion-label>زن</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+        </ion-item>
+        <ion-item >
+            <ion-label>تعداد</ion-label>
+            <ion-label style="display: flex;justify-content: space-between;align-items: center" class="ion-text-end">
+                <ion-button mode="ios" (click)="minus()" color="primary" fill="clear">
+                    <ion-icon size="large" name="remove-circle-outline"></ion-icon>
+                </ion-button>
+                <span>{{order?.count}}</span>
+                <ion-button (click)="plus()" color="primary" fill="clear">
+                    <ion-icon size="large" name="add-circle-outline"></ion-icon>
+                </ion-button>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-list class="ion-margin-top">
+        <ion-item *ngIf="loading">
+            <ion-label class="ion-text-center" >
+                <ion-spinner ></ion-spinner>
+            </ion-label>
+        </ion-item>
+        <ng-container *ngIf="!loading && info">
+            <ng-container *ngIf="!info.worktime">
+                <ion-item>
+                    <ion-label class="ion-text-center ion-text-wrap">با عرض پوشش مجموعه در این تاریخ قادر به خدمات رسانی به شما نمی باشد.</ion-label>
+                </ion-item>
+            </ng-container>
+            <ng-container *ngIf="info.worktime">
+                <ion-item>
+                    <ion-label>ساعت شروع</ion-label>
+                    <ion-label class="ion-text-end">
+                        {{info?.worktime?.FromDateTime|dateFormat:'HH:mm'}}
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>ساعت پایان</ion-label>
+                    <ion-label  class="ion-text-end">
+                        {{info?.worktime?.ToDateTime|dateFormat:'HH:mm'}}
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>تعداد افراد حاضر</ion-label>
+                    <ion-label class="ion-text-end">
+                        {{info.count}}
+                    </ion-label>
+                </ion-item>
+            </ng-container>
+        </ng-container>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="no-bg">
+        <ion-button (click)="submit()" [disabled]="loading || !isEnabledSubmit()" expand="block">
+            مرحله بعد
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>
